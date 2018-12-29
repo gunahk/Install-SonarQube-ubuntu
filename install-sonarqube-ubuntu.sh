@@ -44,7 +44,7 @@ sudo systemctl enable postgresql
 # Create and Configure Database
 su - postgres -c "createuser sonar"
 sudo -u postgres psql -c "ALTER USER sqube WITH ENCRYPTED password '654321Ab';"
-sudo -u postgres psql -c "CREATE DATABASE sqube OWNER sqube;"
+sudo -u postgres psql -c "CREATE DATABASE sonar OWNER sonar;"
 
 # Install SonarQube
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.2.1.zip
@@ -69,6 +69,3 @@ systemctl enable sonar
 
 #To check if the service is running, run:
 systemctl status sonar
-
-echo "Sonarqube is successfully installed at /opt/sonarqube" For Aceess sonarqube Go to http://localhost:9000/
-echo "you can start and stop sonarqube using command : sudo service sonar stop|start|status|restart"
