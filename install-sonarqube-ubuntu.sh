@@ -46,13 +46,17 @@ su - postgres -c "createuser sonar"
 sudo -u postgres psql -c "ALTER USER sqube WITH ENCRYPTED password '654321Ab';"
 sudo -u postgres psql -c "CREATE DATABASE sonar OWNER sonar;"
 
+# User add Sonar
+useradd sonar
+echo "sonar:sonar" | chpasswd
+
 # Install SonarQube
-wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.2.1.zip
-unzip sonarqube-7.2.1.zip -d /opt
-sudo mv /opt/sonarqube-7.2.1 /opt/sonarqube
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.5.zip
+unzip sonarqube-7.5.zip -d /opt
+sudo mv /opt/sonarqube-7.5 /opt/sonarqube
 
 # clean Downloaded file
-rm sonarqube-7.2.1.zip
+rm sonarqube-7.5.zip
 
 # Configure SonarQube
 cd /opt/sonarqube/conf
@@ -63,6 +67,10 @@ wget https://s3.amazonaws.com/serverkaka-pubic-file/sonarqube/sonar.properties
 cd /etc/systemd/system/
 wget https://s3.amazonaws.com/serverkaka-pubic-file/sonarqube/sonar.service
 systemctl start sonar
+
+# Set Permission
+chown -R sonar:sonar /opt/sonarqube
+chown sonar:sonar /etc/systemd/system/sonar.service
 
 # Enable the SonarQube service to automatically start at boot time.
 systemctl enable sonar
