@@ -75,5 +75,5 @@ chown sonar:sonar /etc/systemd/system/sonar.service
 # Enable the SonarQube service to automatically start at boot time.
 systemctl enable sonar
 
-#To check if the service is running, run:
+# Check if the service is running
 systemctl status sonar
